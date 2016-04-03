@@ -3,65 +3,39 @@ import { expect } from 'chai';
 import CustomDate from '../src/customDate';
 
 describe('CustomDate', () => {
-  it('should generate payslip happy case', () => {
-    // const employee = new Employee('David', 'Rudd', 60050, 9);
-    // const payslip = new MonthlyPayslip();
-    // payslip.generatePayslip(employee, '01 March - 31 March');
-    // expect(payslip.payPeriod).to.be.equal('01 March - 31 March');
-    // expect(payslip.grossIncome).to.be.equal(5004);
-    // expect(payslip.incomeTax).to.be.equal(922);
-    // expect(payslip.netIncome).to.be.equal(4082);
-    // expect(payslip.superannuation).to.be.equal(450);
-    expect(true).to.be.equal(true);
+  it('should generate correct values from min', () => {
+    const customDate = new CustomDate();
+    expect(customDate.parse('01/01/1901')).to.be.equal(1);
+    expect(customDate.parse('02/01/1901')).to.be.equal(2);
+    expect(customDate.parse('02/02/1901')).to.be.equal(33);
   });
 
-  // it('should generate payslip happy case 2', () => {
-  //   const employee = new Employee('Ryan', 'Chen', 120000, 10);
-  //   const payslip = new MonthlyPayslip();
-  //   payslip.generatePayslip(employee, '01 March - 31 March');
-  //   expect(payslip.payPeriod).to.be.equal('01 March - 31 March');
-  //   expect(payslip.grossIncome).to.be.equal(10000);
-  //   expect(payslip.incomeTax).to.be.equal(2696);
-  //   expect(payslip.netIncome).to.be.equal(7304);
-  //   expect(payslip.superannuation).to.be.equal(1000);
-  // });
+  it('should generate correct values for leap years', () => {
+    const customDate = new CustomDate();
+    expect(customDate.parse('01/02/1905')).to.be.equal(1493);
+  });
 
-  // it('should generate payslip with no tax', () => {
-  //   const employee = new Employee('John', 'Doe', 18200, 10);
-  //   const payslip = new MonthlyPayslip();
-  //   payslip.generatePayslip(employee, '01 March - 31 March');
-  //   expect(payslip.payPeriod).to.be.equal('01 March - 31 March');
-  //   expect(payslip.grossIncome).to.be.equal(1517);
-  //   expect(payslip.incomeTax).to.be.equal(0);
-  //   expect(payslip.netIncome).to.be.equal(1517);
-  //   expect(payslip.superannuation).to.be.equal(152);
-  // });
+  it('should generate allow format without padding', () => {
+    const customDate = new CustomDate();
+    expect(customDate.parse('1/2/1905')).to.be.equal(1493);
+  });
 
-  // it('should generate payslip highest tax bracket', () => {
-  //   const employee = new Employee('John', 'Doe', 180001, 10);
-  //   const payslip = new MonthlyPayslip();
-  //   payslip.generatePayslip(employee, '01 January - 31 January');
-  //   expect(payslip.payPeriod).to.be.equal('01 January - 31 January');
-  //   expect(payslip.grossIncome).to.be.equal(15000);
-  //   expect(payslip.incomeTax).to.be.equal(4546);
-  //   expect(payslip.netIncome).to.be.equal(10454);
-  //   expect(payslip.superannuation).to.be.equal(1500);
-  // });
+  it('should throw an error when date is out of range', () => {
+    const customDate = new CustomDate();
+    expect(customDate.parse.bind(CustomDate, '1/2/1900')).to.throw('Invalid input, date out of range: 1/2/1900');
+    expect(customDate.parse.bind(CustomDate, '1/1/3000')).to.throw('Invalid input, date out of range: 1/1/3000');
+  });
 
-  // it('should generate payslip with second tax bracket', () => {
-  //   const employee = new Employee('John', 'Doe', 18300, 10);
-  //   const payslip = new MonthlyPayslip();
-  //   payslip.generatePayslip(employee, '01 January - 31 January');
-  //   expect(payslip.payPeriod).to.be.equal('01 January - 31 January');
-  //   expect(payslip.grossIncome).to.be.equal(1525);
-  //   expect(payslip.incomeTax).to.be.equal(2);
-  //   expect(payslip.netIncome).to.be.equal(1523);
-  //   expect(payslip.superannuation).to.be.equal(153);
-  // });
+  it('should throw an error when format is incorrect', () => {
+    const customDate = new CustomDate();
+    expect(customDate.parse.bind(CustomDate, '1/2/23424/1900')).to.throw('Invalid input, doesnt match format: 1/2/23424/1900');
+    expect(customDate.parse.bind(CustomDate, '1/2')).to.throw('Invalid input, doesnt match format: 1/2');
+    expect(customDate.parse.bind(CustomDate, 'bob')).to.throw('Invalid input, doesnt match format: bob');
+  });
 
-  // it('should throw an error when the salary is invalid', () => {
-  //   const employee = new Employee('John', 'Doe', -10, 10);
-  //   const payslip = new MonthlyPayslip();
-  //   expect(payslip.generatePayslip.bind(MonthlyPayslip, employee, '01 January - 31 January')).to.throw(Error);
-  // });
+  it('should throw an error when its not a string', () => {
+    const customDate = new CustomDate();
+    expect(customDate.parse.bind(CustomDate, '')).to.throw('Invalid input, needs to be a valid string and not empty: ');
+    expect(customDate.parse.bind(CustomDate, 12)).to.throw('Invalid input, needs to be a valid string and not empty: 12');
+  });
 });

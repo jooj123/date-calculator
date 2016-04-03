@@ -28,7 +28,7 @@ export default class CustomDate {
    */
   parse(str) {
     if (typeof str !== 'string' || str === '') {
-      throw new Error(`Invalid input, needs to be a valid string: ${str}`);
+      throw new Error(`Invalid input, needs to be a valid string and not empty: ${str}`);
     }
 
     const reg = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;

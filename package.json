@@ -4,10 +4,10 @@
   "description": "Calculate days between 2 dates without using date objects",
   "main": "./build/index.js",
   "bin": {
-    "datecalculator": "./build/index.js"
+    "date-calculator": "./build/index.js"
   },
   "scripts": {
-    "start": "babel-node ./src/index.js",
+    "start": "npm run build && node ./build/index.js",
     "test": "mocha ./test/* --compilers js:babel-core/register",
     "build": "babel src -d build"
   },
