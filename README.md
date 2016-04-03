@@ -24,5 +24,22 @@ These should work as a minimum:
 ## Note
 
 Language features/classes, (i.e. native date or calendar classes),
-framework classes or helper libraries are not used to solve the
-problem, however they’re used for testing purposes.
+framework classes or helper libraries are NOT used to solve the
+problem.
+
+## Requirements
+- Install [Node.js >= 4.2](http://nodejs.org/) and [npm](https://npmjs.org/)
+- Mac or Linux (I have not tested on windows - might work?)
+
+## Run
+Note: this will do a babel transcompile before the script is run
+
+- Run `npm install`
+- Run `npm start`
+
+The script will ask for the first and second date and then echo the result.
+
+## Run Tests
+
+- Run `npm install`
+- Run `npm test`

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+require('babel-polyfill');
 import co from 'co';
 import prompt from 'co-prompt';
 import chalk from 'chalk';
-import DateCalculator from './src/dateCalculator';
+import DateCalculator from './dateCalculator';
 
 co(function *() {
   const first = yield prompt('enter first date (format: dd/mm/yyyy): ');
